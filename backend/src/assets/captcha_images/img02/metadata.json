@@ -1,0 +1,10 @@
+{
+  "question": "Vyberte všechny obrázky obsahující přechod pro chodce",
+  "question_en": "Select all images containing a pedestrian crossing",
+  "correct_tiles": [
+    6,
+    7,
+    8
+  ],
+  "category": "ped_crossings"
+}

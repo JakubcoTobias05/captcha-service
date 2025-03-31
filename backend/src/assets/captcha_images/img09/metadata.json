@@ -1,0 +1,9 @@
+{
+  "question": "Vyberte všechny semafory na obrázku",
+  "question_en": "Select all traffic lights in the image",
+  "correct_tiles": [
+    3,
+    5
+  ],
+  "category": "traffic_lights"
+}

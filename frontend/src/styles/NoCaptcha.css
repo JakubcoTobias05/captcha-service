@@ -1,0 +1,88 @@
+.no-captcha-container {
+  max-width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.full-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.no-captcha-message {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.no-captcha-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.no-captcha-debug {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #fff;
+  z-index: 10000;
+}
+
+.no-captcha-submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #28a745;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.no-captcha-submit-button.verified {
+  background-color: #28a745; 
+}
+
+.no-captcha-submit-button.failed {
+  background-color: #dc3545;
+}
+
+.no-captcha-reload-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.no-captcha-submit-button:disabled,
+.no-captcha-reload-button:disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .no-captcha-submit-button,
+  .no-captcha-reload-button {
+    width: 90%;
+    font-size: 14px;
+  }
+  .no-captcha-container {
+    max-width: 90%;
+  }
+}

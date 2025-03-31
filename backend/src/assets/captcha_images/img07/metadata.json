@@ -1,0 +1,12 @@
+{
+  "question": "Vyberte všechny obrázky obsahující auta",
+  "question_en": "Select all squares containing cars",
+  "correct_tiles": [
+    2,
+    3,
+    4,
+    7,
+    8
+  ],
+  "category": "cars"
+}

@@ -1,0 +1,71 @@
+/* CaptchaTriggerButton.css */
+.captcha-trigger-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 2px solid #888;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Pro light theme explicitně nastavíme bílé pozadí a černý text */
+.captcha-widget-container.light .captcha-trigger-button {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.captcha-trigger-button .captcha-trigger-button-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.captcha-trigger-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  background-color: transparent;
+  border: 2px solid #888;
+  border-radius: 2px;
+}
+
+.captcha-btn-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.captcha-trigger-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .captcha-trigger-button {
+    max-width: 60%;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .captcha-btn-logo {
+    width: 35px;
+    height: 35px;
+    margin-right: 8px;
+  }
+
+  .captcha-trigger-button-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+}
