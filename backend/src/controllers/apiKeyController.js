@@ -84,6 +84,9 @@ class ApiKeyController {
 
       await newKey.save();
 
+      // Odeslání emailu s novým API klíčem při vytvoření
+      await this.#sendNewKeyEmail(normalizedEmail, apiKey);
+
       res.status(201).json({
         success: true,
         data: {
@@ -295,7 +298,7 @@ class ApiKeyController {
       const encryptedKey = this.#encrypt(apiKey);
       await ApiKey.updateOne(
         { apiKey: encryptedKey },
-        { $inc: { usageCount: 1 } } // Zvýšení počítadla použití
+        { $inc: { usageCount: 1 } }
       );
       logger.debug('Sledování použití API klíče', { apiKey });
     } catch (error) {
