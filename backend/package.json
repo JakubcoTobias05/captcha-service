@@ -2,11 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "jest",
-    "start": "node src/index.js",
-    "dev": "nodemon -r dotenv/config src/index.js --env-file=./.env"
+    "build": "babel src --out-dir build",
+    "start": "node --experimental-vm-modules build/index.js",
+    "dev": "nodemon -r dotenv/config src/index.js --env-file=./.env",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
