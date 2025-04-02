@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node --experimental-vm-modules src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon -r dotenv/config src/index.js --env-file=./.env"
   },
   "keywords": [],

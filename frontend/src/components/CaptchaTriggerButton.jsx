@@ -1,6 +1,7 @@
 import React from 'react';
-import { translations } from '../translations.js';
+import { translations } from '../translations';
 import '../styles/CaptchaTriggerButton.css';
+import btnLogo from '../assets/images/btn-logo.png';
 
 function CaptchaTriggerButton({ status = 'neutral', onClick, currentLang, disabled }) {
   const btnText = translations[currentLang]?.notRobot || 'Nejsem robot';
@@ -12,7 +13,7 @@ function CaptchaTriggerButton({ status = 'neutral', onClick, currentLang, disabl
       disabled={disabled || status === 'verified'}
     >
       <img
-        src="/assets/images/btn-logo.png"
+        src={btnLogo}
         alt="Captcha Logo"
         className="captcha-btn-logo"
       />

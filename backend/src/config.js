@@ -39,15 +39,14 @@ export default {
     tls: process.env.REDIS_TLS === 'true'
   },
   cors: {
-    origin: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3002', 'http://localhost:5500',  'http://127.0.0.1:5500', 'https://captcha-spst.netlify.app'],
+    origin: '*',
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'], 
-    credentials: true
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
+    credentials: false
   },
-
   noCaptcha: {
-    minMouseMovements: 5,
-    minClicks: 1,
-    minInteractionTime: 500
+    minMouseMovements: 1,
+    minClicks: 0,
+    minInteractionTime: 0
   }  
 };

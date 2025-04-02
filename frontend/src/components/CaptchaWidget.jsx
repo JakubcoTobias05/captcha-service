@@ -1,3 +1,4 @@
+// src/components/CaptchaWidget.js
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import CaptchaTriggerButton from './CaptchaTriggerButton';
@@ -5,12 +6,11 @@ import TextCaptcha from './TextCaptcha';
 import AudioCaptcha from './AudioCaptcha';
 import ImageCaptcha from './ImageCaptcha';
 import NoCaptcha from './NoCaptcha';
-import '../App.css';
-import { translations } from '../translations.js';
+import '../styles/CaptchaWidget.css';
+import { translations } from '../translations';
 
-function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark' }) {
-  const backendUrl = "http://localhost:3001";
-  //eslint-disable-next-line no-unused-vars
+function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', backendUrl }) {
+  // backendUrl nyní přichází jako prop, není zde hardcodováno
   const [isVerified, setIsVerified] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [captchaData, setCaptchaData] = useState(null);
@@ -201,6 +201,7 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark' }) {
           loading={loading}
           currentLang={currentLang}
           apiKey={apiKey}
+          backendUrl={backendUrl}
         />
       );
     } else if (currentType === 'image') {
@@ -244,10 +245,17 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark' }) {
             <Modal>
               {currentType === 'text' && <h3>{translations[currentLang].captchaTitleText}</h3>}
               {currentType === 'audio' && <h3>{translations[currentLang].captchaTitleAudio}</h3>}
-              {loading && <div className="loading-message">{translations[currentLang].loading}</div>}
-              {error && <div className="error-message">{error}</div>}
-              {!loading && captchaData && renderCaptchaContent()}
-              {verifyMessage && <div className="verify-message">{verifyMessage}</div>}
+              {loading ? (
+                <div className="loading-placeholder">
+                  <div className="spinner"></div>
+                </div>
+              ) : (
+                <>
+                  {error && <div className="error-message">{error}</div>}
+                  {captchaData && renderCaptchaContent()}
+                  {verifyMessage && <div className="verify-message">{verifyMessage}</div>}
+                </>
+              )}
             </Modal>
           )}
         </>

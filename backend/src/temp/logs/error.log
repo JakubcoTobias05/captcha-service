@@ -31426,3 +31426,61 @@
 2025-03-31 06:52:50 [ERROR] NoCAPTCHA verification failed
 2025-03-31 06:56:15 [ERROR] NoCAPTCHA verification failed
 2025-03-31 06:56:22 [ERROR] NoCAPTCHA verification failed
+2025-04-01 19:02:10 [ERROR] ❌ MongoDB error: getaddrinfo ENOTFOUND captchadb-shard-00-01.u1lxr.mongodb.net
+2025-04-01 19:43:43 [ERROR] Audio CAPTCHA generation failed: Language not supported: cs
+
+2025-04-01 19:43:43 [ERROR] Chyba CaptchaController (generate)
+2025-04-01 19:46:19 [ERROR] Audio CAPTCHA generation failed: Language not supported: cs
+
+2025-04-01 19:46:19 [ERROR] Chyba CaptchaController (generate)
+2025-04-01 19:46:22 [ERROR] Audio CAPTCHA generation failed: Language not supported: cs
+
+2025-04-01 19:46:22 [ERROR] Chyba CaptchaController (generate)
+2025-04-01 20:00:01 [ERROR] Audio token 32261058aea37ed1b5c3d264a3412259 neexistuje v Redis.
+2025-04-01 20:01:06 [ERROR] Chyba při získávání informací o souboru 3de7b3668a945d14c4eee98207ae5ddc.mp3: ENOENT: no such file or directory, stat 'C:\Users\tjaku\Documents\GitHub\captcha-service\backend\src\temp\audio\3de7b3668a945d14c4eee98207ae5ddc.mp3'
+2025-04-01 20:01:13 [ERROR] Chyba při získávání informací o souboru 3de7b3668a945d14c4eee98207ae5ddc.mp3: ENOENT: no such file or directory, stat 'C:\Users\tjaku\Documents\GitHub\captcha-service\backend\src\temp\audio\3de7b3668a945d14c4eee98207ae5ddc.mp3'
+2025-04-01 20:01:17 [ERROR] Chyba při získávání informací o souboru 3de7b3668a945d14c4eee98207ae5ddc.mp3: ENOENT: no such file or directory, stat 'C:\Users\tjaku\Documents\GitHub\captcha-service\backend\src\temp\audio\3de7b3668a945d14c4eee98207ae5ddc.mp3'
+2025-04-01 20:01:32 [ERROR] Audio token a53081062c543a0d039169bfc090972f neexistuje v Redis.
+2025-04-01 20:01:45 [ERROR] Audio token 38b26c036f1dc48eefe65bcd1e7438fa neexistuje v Redis.
+2025-04-01 20:02:35 [ERROR] Audio token 5d623a182c290af9f9bc4c384944a1ad neexistuje v Redis.
+2025-04-01 22:51:12 [ERROR] Audio token 7383979b8d84cab1efd490c940a6c5c2 neexistuje v Redis.
+2025-04-01 22:57:40 [ERROR] Redis error: read ECONNRESET
+2025-04-01 22:57:45 [ERROR] Redis error: Connection timeout
+2025-04-01 22:57:50 [ERROR] Redis error: Connection timeout
+2025-04-01 22:57:55 [ERROR] Redis error: Connection timeout
+2025-04-01 22:57:55 [ERROR] Redis error: getaddrinfo ENOTFOUND redis-17973.c293.eu-central-1-1.ec2.redns.redis-cloud.com
+2025-04-01 22:57:55 [ERROR] Redis error: getaddrinfo ENOTFOUND redis-17973.c293.eu-central-1-1.ec2.redns.redis-cloud.com
+2025-04-01 22:57:56 [ERROR] Redis error: getaddrinfo ENOTFOUND redis-17973.c293.eu-central-1-1.ec2.redns.redis-cloud.com
+2025-04-01 22:57:56 [ERROR] Redis error: getaddrinfo ENOTFOUND redis-17973.c293.eu-central-1-1.ec2.redns.redis-cloud.com
+2025-04-02 01:48:08 [ERROR] Audio token a97fd7be8e62a02a08f7dc3d83e467a4 neexistuje v Redis.
+2025-04-02 01:48:44 [ERROR] Audio token 950b2f5b267e6c10efeadb208934aa31 neexistuje v Redis.
+2025-04-02 01:48:56 [ERROR] Chyba CaptchaController (generate)
+2025-04-02 01:48:56 [ERROR] Chyba CaptchaController (generate)
+2025-04-02 01:49:05 [ERROR] Chyba CaptchaController (generate)
+2025-04-02 01:49:05 [ERROR] Chyba CaptchaController (generate)
+2025-04-02 01:49:10 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:51:09 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:52:21 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:55:23 [ERROR] Chyba CaptchaController (verify)
+2025-04-02 01:55:56 [ERROR] Chybějící API klíč v hlavičce nebo query
+2025-04-02 01:56:17 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:57:19 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:57:29 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:57:40 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:57:46 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:58:45 [ERROR] Chybějící API klíč v hlavičce nebo query
+2025-04-02 01:59:05 [ERROR] NoCAPTCHA verification failed
+2025-04-02 01:59:50 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:03:46 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:04:25 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:04:26 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:05:55 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:06:27 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:06:30 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:06:43 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:07:25 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:08:42 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:11:15 [ERROR] NoCAPTCHA verification failed
+2025-04-02 02:11:17 [ERROR] Chyba při odesílání audio souboru: Request aborted
+2025-04-02 02:11:20 [ERROR] Audio token 47a3e1245c0d1293dcd6edd437c63cf2 neexistuje v Redis.
+2025-04-02 02:18:55 [ERROR] Chyba při odesílání audio souboru: Request aborted

@@ -157,7 +157,8 @@ class ApiKeyController {
       user.resetTokenExpiry = resetTokenExpiry;
       await user.save();
   
-      const resetLink = `http://localhost:3002/reset-api-key?token=${resetToken}`;
+      const resetLink = `https://captcha-spst.netlify.app/reset-api-key?token=${resetToken}`;
+
       await this.#sendResetEmail(clientEmail, resetLink);
       
       res.json({

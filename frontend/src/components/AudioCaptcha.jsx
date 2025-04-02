@@ -1,5 +1,5 @@
 import React from 'react';
-import { translations } from '../translations.js';
+import { translations } from '../translations';
 import '../styles/AudioCaptcha.css';
 
 function AudioCaptcha({
@@ -17,10 +17,30 @@ function AudioCaptcha({
 }) {
   const audioSrc = `${backendUrl}/api/v1/captcha/audio/${captchaData.token}?x-api-key=${encodeURIComponent(apiKey.trim())}`;
 
+  const handleAudioError = (e) => {
+    console.error("AudioCaptcha: chyba při načítání audia", e);
+    if (e.target && e.target.error) {
+      console.error("Audio error code:", e.target.error.code);
+    }
+  };
+
+  const handleAudioLoaded = (e) => {
+    console.info("AudioCaptcha: audio načteno úspěšně", e);
+  };
+
+  console.debug("AudioCaptcha: audioSrc =", audioSrc);
+
   return (
     <div className="audio-captcha">
       <div className="captcha-audio-wrapper">
-        <audio controls crossOrigin="anonymous" preload="auto" src={audioSrc}>
+        <audio
+          controls
+          crossOrigin="anonymous"
+          preload="auto"
+          src={audioSrc}
+          onError={handleAudioError}
+          onLoadedData={handleAudioLoaded}
+        >
           Your browser does not support the audio element.
         </audio>
       </div>

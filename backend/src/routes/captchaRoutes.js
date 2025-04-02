@@ -21,7 +21,7 @@ const generateLimiter = rateLimit({
 });
 
 router.get('/audio/:token', async (req, res, next) => {
-  let apiKey = req.headers['x-api-key'] || req.query['x-api-key'];
+  const apiKey = req.headers['x-api-key'] || req.query['x-api-key'];
   if (!apiKey) {
     logger.error('Chybějící API klíč v hlavičce nebo query');
     return res.status(401).json({ error: 'API_KEY_REQUIRED' });
@@ -31,24 +31,49 @@ router.get('/audio/:token', async (req, res, next) => {
   try {
     const { token } = req.params;
     const exists = await redisClient.exists(`captcha:audio:${token}`);
-    if (!exists) return res.status(404).json({ error: 'Neplatné audio' });
+    if (!exists) {
+      logger.error(`Audio token ${token} neexistuje v Redis.`);
+      return res.status(404).json({ error: 'Neplatné audio' });
+    }
+    
     const filePath = path.join(process.cwd(), 'src', 'temp', 'audio', `${token}.mp3`);
+
+    try {
+      const stats = await fs.stat(filePath);
+      logger.info(`Audio soubor ${token}.mp3 nalezen, velikost: ${stats.size}B`);
+    } catch (err) {
+      logger.error(`Chyba při získávání informací o souboru ${token}.mp3:`, err);
+      return res.status(404).json({ error: 'Soubor nenalezen' });
+    }
+    
     res.sendFile(filePath, {
       headers: { 
         'Content-Type': 'audio/mpeg',
         'Cross-Origin-Resource-Policy': 'cross-origin',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Accept-Ranges': 'bytes'
       }
     }, (err) => {
-      if (!err) {
-        fs.unlink(filePath)
-          .then(() => logger.info(`Audio soubor ${token}.mp3 byl úspěšně smazán po odeslání`))
-          .catch(err => logger.error("Chyba při mazání audio souboru:", err));
-      } else {
+      if (err) {
         logger.error("Chyba při odesílání audio souboru:", err);
+      } else {
+        logger.info(`Audio soubor ${token}.mp3 byl úspěšně odeslán`);
       }
     });
+    
+    res.on('finish', () => {
+      setTimeout(async () => {
+        try {
+          await fs.unlink(filePath);
+          logger.info(`Audio soubor ${token}.mp3 byl smazán po uplynutí 1 minuty`);
+        } catch (err) {
+          logger.error(`Chyba při mazání audio souboru ${token}.mp3:`, err);
+        }
+      }, 60000);
+    });
+    
   } catch (error) {
+    logger.error("Chyba serveru při obsluze audio CAPTCHA:", error);
     res.status(500).json({ error: 'Chyba serveru' });
   }
 });

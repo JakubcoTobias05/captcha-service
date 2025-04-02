@@ -1,5 +1,5 @@
 import React from 'react';
-import { translations } from '../translations.js';
+import { translations } from '../translations';
 import '../styles/ImageCaptcha.css';
 
 function ImageCaptcha({

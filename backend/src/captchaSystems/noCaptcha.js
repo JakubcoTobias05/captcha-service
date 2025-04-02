@@ -42,8 +42,12 @@ class NoCaptcha {
 
   async verify(token, interactionData) {
     try {
-      logger.debug('NoCAPTCHA - Přijatá interakční data:', interactionData);
-
+      if (interactionData) {
+        logger.debug("NoCAPTCHA - Přijatá interakční data:", JSON.stringify(interactionData, null, 2));
+      } else {
+        logger.debug("NoCAPTCHA - žádná interakční data přijata");
+      }
+      
       const storedData = await redisClient.get(`captcha:nocaptcha:${token}`);
       if (!storedData) {
         logger.warn('Neplatný nebo expirovaný token', { token });
@@ -109,6 +113,7 @@ class NoCaptcha {
       logger.debug(`NoCAPTCHA - totalTime ${totalTime}ms < MIN_TIME ${this.MIN_TIME}ms`);
       return false;
     }
+
 
     const movementScore = this.#calculateMovementScore(mouseTrail);
     const clickScore = this.#calculateClickScore(clickTimestamps, startTime, endTime);

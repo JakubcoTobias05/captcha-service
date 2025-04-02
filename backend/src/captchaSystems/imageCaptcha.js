@@ -10,20 +10,37 @@ class ImageCaptcha {
     this.ttl = config.captchaTTL;
     this.imagesDir = path.join(process.cwd(), 'src', 'assets', 'captcha_images');
     this.backendUrl = config.backendUrl || 'http://localhost:3001';
+    this.metadataCache = {}; // Cache pro metadata kategorií
+    this.loadCategories();
+  }
+
+  async loadCategories() {
+    try {
+      const categories = await fs.readdir(this.imagesDir);
+      for (const category of categories) {
+        const categoryPath = path.join(this.imagesDir, category);
+        const metadataPath = path.join(categoryPath, 'metadata.json');
+        try {
+          const metadataRaw = await fs.readFile(metadataPath, 'utf8');
+          const metadata = JSON.parse(metadataRaw);
+          this.metadataCache[category] = metadata;
+        } catch (err) {
+          logger.error(`Chyba při načítání metadata pro kategorii ${category}:`, err);
+        }
+      }
+    } catch (err) {
+      logger.error('Chyba při načítání kategorií obrázkové CAPTCHA:', err);
+    }
   }
 
   async generate() {
     try {
-      const categories = await fs.readdir(this.imagesDir);
-      if (!categories || categories.length === 0) {
+      const categories = Object.keys(this.metadataCache);
+      if (!categories.length) {
         throw new Error('No image captcha categories found');
       }
       const category = categories[Math.floor(Math.random() * categories.length)];
-      const categoryPath = path.join(this.imagesDir, category);
-
-      const metadataPath = path.join(categoryPath, 'metadata.json');
-      const metadataRaw = await fs.readFile(metadataPath, 'utf8');
-      const metadata = JSON.parse(metadataRaw);
+      const metadata = this.metadataCache[category];
 
       const tiles = [];
       for (let i = 0; i < 9; i++) {
@@ -31,10 +48,8 @@ class ImageCaptcha {
         const col = i % 3;
         tiles.push(`${this.backendUrl}/assets/captcha_images/${category}/tile_${row}_${col}.png`);
       }
-      const orderedTiles = tiles;
 
       const token = crypto.randomBytes(16).toString('hex');
-
       await redisClient.set(
         `captcha:image:${token}`,
         JSON.stringify({ correctTiles: metadata.correct_tiles }),
@@ -43,7 +58,7 @@ class ImageCaptcha {
 
       return {
         token,
-        images: orderedTiles,
+        images: tiles,
         question: metadata.question,
         question_en: metadata.question_en
       };

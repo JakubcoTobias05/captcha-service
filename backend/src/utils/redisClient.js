@@ -9,6 +9,7 @@ class RedisClient {
       socket: {
         host: process.env.REDIS_HOST,
         port: parseInt(process.env.REDIS_PORT, 10),
+        connectTimeout: 30000, 
         ...(process.env.REDIS_TLS === 'true' ? { tls: {} } : {})
       }
     });
@@ -17,10 +18,11 @@ class RedisClient {
       logger.error('Redis error:', err);
     });
 
-    this.client.connect();
+    this.client.connect()
+      .then(() => logger.info('✅ Redis připojeno'))
+      .catch((err) => logger.error('❌ Chyba při připojení k Redis:', err));
 
     this.client.on('connect', () => logger.info('🟡 Připojuji se k Redis...'));
-    this.client.on('ready', () => logger.info('✅ Redis připojeno'));
     this.client.on('end', () => logger.warn('🔴 Odpojeno od Redis'));
   }
 

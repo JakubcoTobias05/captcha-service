@@ -1,0 +1,23 @@
+.captcha-widget-container {
+    max-width: 500px; 
+    margin: 20px auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .captcha-controls .control-button:hover {
+    background-color: #333 !important;
+  }
+  
+  .captcha-controls .control-button:hover svg {
+    stroke: #fff !important;
+  }
+  
+  .captcha-widget-container.dark {
+    --bg-color: #1F1F1F;
+    --text-color: #ffffff;
+    --submit-disabled-bg: #47719f;
+    --submit-blue: #007bff;
+    --button-bg: #2d2d2d;
+  }
+  

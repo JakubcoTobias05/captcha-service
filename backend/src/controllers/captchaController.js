@@ -112,17 +112,15 @@ class CaptchaController {
 
   async verify(req, res) {
     try {
+      logger.debug("NoCaptcha verify request body:", req.body);
       const { type, token, answer, interactionData } = req.body;
-
       this.#validateVerificationInput(type, token, answer || interactionData);
-
       const handler = this.#captchaHandlers[type];
       const isValid = type === 'nocaptcha' 
         ? await handler.verify(token, interactionData)
         : await handler.verify(token, answer);
-
+  
       logger.info(`CAPTCHA ověřena`, { type, token, status: isValid ? 'valid' : 'invalid' });
-
       res.json({
         success: isValid,
         message: isValid ? 'CAPTCHA ověřena' : 'Neplatná odpověď'
@@ -131,6 +129,7 @@ class CaptchaController {
       this.#handleError(error, res, 'verify');
     }
   }
+  
 }
 
 export default new CaptchaController();
