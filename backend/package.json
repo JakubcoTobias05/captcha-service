@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "pm2 start dist/index.js --no-daemon",
+    "start": "node dist/index.js",
     "dev": "nodemon -r dotenv/config src/index.js --env-file=./.env",
     "build": "npx babel src -d dist"
   },
