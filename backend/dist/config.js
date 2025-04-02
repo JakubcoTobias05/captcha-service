@@ -1,15 +1,9 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-require("dotenv/config");
+import 'dotenv/config';
 var requiredEnv = ['ENCRYPTION_KEY', 'ENCRYPTION_IV', 'EMAIL_USER', 'EMAIL_PASS', 'REDIS_HOST', 'REDIS_PORT', 'REDIS_USER', 'REDIS_PASS'];
 requiredEnv.forEach(function (env) {
   if (!process.env[env]) throw new Error("Chyb\u011Bj\xEDc\xED ".concat(env, " v .env"));
 });
-var _default = exports["default"] = {
+export default {
   port: process.env.PORT || 3001,
   captchaTTL: 300,
   backendUrl: process.env.BACKEND_URL || 'http://localhost:3001',

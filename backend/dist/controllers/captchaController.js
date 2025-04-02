@@ -1,20 +1,5 @@
-"use strict";
-
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _ApiKey = _interopRequireDefault(require("../models/ApiKey.js"));
-var _textCaptcha = _interopRequireDefault(require("../captchaSystems/textCaptcha.js"));
-var _imageCaptcha = _interopRequireDefault(require("../captchaSystems/imageCaptcha.js"));
-var _audioCaptcha = _interopRequireDefault(require("../captchaSystems/audioCaptcha.js"));
-var _noCaptcha = _interopRequireDefault(require("../captchaSystems/noCaptcha.js"));
-var _logger = _interopRequireDefault(require("../utils/logger.js"));
-var _config = _interopRequireDefault(require("../config.js"));
-var _apiKeyController = _interopRequireDefault(require("./apiKeyController.js"));
 var _excluded = ["token"];
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
@@ -33,6 +18,14 @@ function _classPrivateFieldInitSpec(e, t, a) { _checkPrivateRedeclaration(e, t),
 function _checkPrivateRedeclaration(e, t) { if (t.has(e)) throw new TypeError("Cannot initialize the same private elements twice on an object"); }
 function _classPrivateFieldGet(s, a) { return s.get(_assertClassBrand(s, a)); }
 function _assertClassBrand(e, t, n) { if ("function" == typeof e ? e === t : e.has(t)) return arguments.length < 3 ? t : n; throw new TypeError("Private element is not present on this object"); }
+import ApiKey from '../models/ApiKey.js';
+import textCaptcha from '../captchaSystems/textCaptcha.js';
+import imageCaptcha from '../captchaSystems/imageCaptcha.js';
+import audioCaptcha from '../captchaSystems/audioCaptcha.js';
+import noCaptcha from '../captchaSystems/noCaptcha.js';
+import logger from '../utils/logger.js';
+import config from '../config.js';
+import apiKeyController from './apiKeyController.js';
 var _captchaHandlers = /*#__PURE__*/new WeakMap();
 var _CaptchaController_brand = /*#__PURE__*/new WeakSet();
 var CaptchaController = /*#__PURE__*/function () {
@@ -40,10 +33,10 @@ var CaptchaController = /*#__PURE__*/function () {
     _classCallCheck(this, CaptchaController);
     _classPrivateMethodInitSpec(this, _CaptchaController_brand);
     _classPrivateFieldInitSpec(this, _captchaHandlers, {
-      text: _textCaptcha["default"],
-      image: _imageCaptcha["default"],
-      audio: _audioCaptcha["default"],
-      nocaptcha: _noCaptcha["default"]
+      text: textCaptcha,
+      image: imageCaptcha,
+      audio: audioCaptcha,
+      nocaptcha: noCaptcha
     });
     this.generate = this.generate.bind(this);
     this.verify = this.verify.bind(this);
@@ -63,14 +56,14 @@ var CaptchaController = /*#__PURE__*/function () {
                 _context.next = 5;
                 break;
               }
-              _logger["default"].error('Chybějící API klíč v hlavičce nebo query');
+              logger.error('Chybějící API klíč v hlavičce nebo query');
               return _context.abrupt("return", res.status(401).json({
                 error: 'API_KEY_REQUIRED'
               }));
             case 5:
-              encryptedKey = _apiKeyController["default"].encryptKey(apiKey);
+              encryptedKey = apiKeyController.encryptKey(apiKey);
               _context.next = 8;
-              return _ApiKey["default"].findOne({
+              return ApiKey.findOne({
                 apiKey: encryptedKey
               });
             case 8:
@@ -79,7 +72,7 @@ var CaptchaController = /*#__PURE__*/function () {
                 _context.next = 12;
                 break;
               }
-              _logger["default"].error('Neplatný API klíč');
+              logger.error('Neplatný API klíč');
               return _context.abrupt("return", res.status(403).json({
                 error: 'INVALID_API_KEY'
               }));
@@ -90,7 +83,7 @@ var CaptchaController = /*#__PURE__*/function () {
             case 15:
               _context.prev = 15;
               _context.t0 = _context["catch"](0);
-              _logger["default"].error('Chyba validace API klíče:', _context.t0);
+              logger.error('Chyba validace API klíče:', _context.t0);
               res.status(500).json({
                 error: 'Interní chyba serveru'
               });
@@ -117,7 +110,7 @@ var CaptchaController = /*#__PURE__*/function () {
               _req$query = req.query, _req$query$type = _req$query.type, type = _req$query$type === void 0 ? 'text' : _req$query$type, _req$query$lang = _req$query.lang, lang = _req$query$lang === void 0 ? 'cs' : _req$query$lang;
               _assertClassBrand(_CaptchaController_brand, this, _validateCaptchaType).call(this, type);
               _context2.next = 5;
-              return _apiKeyController["default"].trackUsage(req.headers['x-api-key']);
+              return apiKeyController.trackUsage(req.headers['x-api-key']);
             case 5:
               handler = _classPrivateFieldGet(_captchaHandlers, this)[type];
               if (!(type === 'audio')) {
@@ -142,7 +135,7 @@ var CaptchaController = /*#__PURE__*/function () {
                 data: _objectSpread(_objectSpread({
                   token: token
                 }, captchaData), {}, {
-                  ttl: _config["default"].captchaTTL
+                  ttl: config.captchaTTL
                 })
               });
               _context2.next = 22;
@@ -171,7 +164,7 @@ var CaptchaController = /*#__PURE__*/function () {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              _logger["default"].debug("NoCaptcha verify request body:", req.body);
+              logger.debug("NoCaptcha verify request body:", req.body);
               _req$body = req.body, type = _req$body.type, token = _req$body.token, answer = _req$body.answer, interactionData = _req$body.interactionData;
               _assertClassBrand(_CaptchaController_brand, this, _validateVerificationInput).call(this, type, token, answer || interactionData);
               handler = _classPrivateFieldGet(_captchaHandlers, this)[type];
@@ -192,7 +185,7 @@ var CaptchaController = /*#__PURE__*/function () {
               _context3.t0 = _context3.sent;
             case 14:
               isValid = _context3.t0;
-              _logger["default"].info("CAPTCHA ov\u011B\u0159ena", {
+              logger.info("CAPTCHA ov\u011B\u0159ena", {
                 type: type,
                 token: token,
                 status: isValid ? 'valid' : 'invalid'
@@ -264,15 +257,15 @@ function _handleError(error, res, context) {
   var _ref = errorMap[error.message.split(':')[0]] || defaultError,
     status = _ref.status,
     message = _ref.message;
-  _logger["default"].error("Chyba CaptchaController (".concat(context, ")"), {
+  logger.error("Chyba CaptchaController (".concat(context, ")"), {
     error: error.message,
     stack: error.stack
   });
   res.status(status).json(_objectSpread({
     success: false,
     error: message
-  }, _config["default"].NODE_ENV === 'development' && {
+  }, config.NODE_ENV === 'development' && {
     debug: error.message
   }));
 }
-var _default = exports["default"] = new CaptchaController();
+export default new CaptchaController();

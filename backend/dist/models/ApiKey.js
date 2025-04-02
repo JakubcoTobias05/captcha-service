@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var apiKeySchema = new _mongoose["default"].Schema({
+import mongoose from 'mongoose';
+var apiKeySchema = new mongoose.Schema({
   clientName: {
     type: String,
     required: [true, 'Jméno klienta je povinné'],
@@ -48,4 +41,4 @@ var apiKeySchema = new _mongoose["default"].Schema({
     expires: '365d'
   }
 });
-var _default = exports["default"] = _mongoose["default"].model('ApiKey', apiKeySchema);
+export default mongoose.model('ApiKey', apiKeySchema);
