@@ -9,8 +9,8 @@ class ImageCaptcha {
   constructor() {
     this.ttl = config.captchaTTL;
     this.imagesDir = path.join(process.cwd(), 'src', 'assets', 'captcha_images');
-    this.backendUrl = config.backendUrl || 'http://localhost:3001';
-    this.metadataCache = {}; // Cache pro metadata kategorií
+    this.backendUrl = config.backendUrl || 'https://captcha-service-rjty.onrender.com';
+    this.metadataCache = {}; 
     this.loadCategories();
   }
 

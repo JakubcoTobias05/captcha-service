@@ -27,6 +27,7 @@ var Server = /*#__PURE__*/function () {
     _classPrivateMethodInitSpec(this, _Server_brand);
     this.app = express();
     this.app.use('/assets', express["static"](path.join(process.cwd(), 'src', 'assets')));
+    this.app.set('trust proxy', true);
     this.app.use(function (req, res, next) {
       logger.info("[".concat(req.method, "] ").concat(req.url));
       next();

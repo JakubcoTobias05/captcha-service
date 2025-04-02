@@ -28,8 +28,6 @@ function AudioCaptcha({
     console.info("AudioCaptcha: audio načteno úspěšně", e);
   };
 
-  console.debug("AudioCaptcha: audioSrc =", audioSrc);
-
   return (
     <div className="audio-captcha">
       <div className="captcha-audio-wrapper">

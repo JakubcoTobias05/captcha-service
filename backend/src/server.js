@@ -13,7 +13,7 @@ class Server {
   constructor() {
     this.app = express();
     this.app.use('/assets', express.static(path.join(process.cwd(), 'src', 'assets')));
-
+    this.app.set('trust proxy', true);
     this.app.use((req, res, next) => {
       logger.info(`[${req.method}] ${req.url}`);
       next();
