@@ -259,7 +259,6 @@
     const handleAudioLoaded = e => {
       console.info("AudioCaptcha: audio načteno úspěšně", e);
     };
-    console.debug("AudioCaptcha: audioSrc =", audioSrc);
     return /*#__PURE__*/React__default["default"].createElement("div", {
       className: "audio-captcha"
     }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -545,7 +544,6 @@
   var css_248z = ".captcha-widget-container {\r\n    max-width: 500px; \r\n    margin: 20px auto;\r\n    text-align: center;\r\n    font-family: Arial, sans-serif;\r\n  }\r\n  \r\n  .captcha-controls .control-button:hover {\r\n    background-color: #333 !important;\r\n  }\r\n  \r\n  .captcha-controls .control-button:hover svg {\r\n    stroke: #fff !important;\r\n  }\r\n  \r\n  .captcha-widget-container.dark {\r\n    --bg-color: #1F1F1F;\r\n    --text-color: #ffffff;\r\n    --submit-disabled-bg: #47719f;\r\n    --submit-blue: #007bff;\r\n    --button-bg: #2d2d2d;\r\n  }\r\n  ";
   styleInject(css_248z);
 
-  // src/components/CaptchaWidget.js
   function CaptchaWidget({
     apiKey,
     type = 'text',
@@ -624,6 +622,15 @@
       }
       setUserAnswer('');
     };
+
+    // Funkce pro vyvolání globální události po úspěšném ověření
+    const triggerGlobalVerifiedEvent = token => {
+      window.dispatchEvent(new CustomEvent('captchaVerified', {
+        detail: {
+          token
+        }
+      }));
+    };
     const handleSubmit = async () => {
       try {
         setLoading(true);
@@ -645,12 +652,14 @@
           setIsVerified(true);
           setTriggerStatus("verified");
           setAttemptCount(0);
-          // Zavoláme callback onVerified, pokud je definován
+          // Volání callbacku, pokud je definován
           if (typeof onVerified === 'function') {
             onVerified({
               token: captchaData.token
             });
           }
+          // Vyvolání globální události pro snadnou integraci do HTML/PHP
+          triggerGlobalVerifiedEvent(captchaData.token);
           if (currentType !== 'nocaptcha') {
             setTimeout(() => setShowModal(false), 1000);
           }
@@ -699,6 +708,7 @@
               token: captchaData.token
             });
           }
+          triggerGlobalVerifiedEvent(captchaData.token);
         } else {
           setTriggerStatus("failed");
           const newAttemptCount = attemptCount + 1;

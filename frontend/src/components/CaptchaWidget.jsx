@@ -1,4 +1,3 @@
-// src/components/CaptchaWidget.js
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import CaptchaTriggerButton from './CaptchaTriggerButton';
@@ -91,6 +90,11 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', bac
     setUserAnswer('');
   };
 
+  // Funkce pro vyvolání globální události po úspěšném ověření
+  const triggerGlobalVerifiedEvent = (token) => {
+    window.dispatchEvent(new CustomEvent('captchaVerified', { detail: { token } }));
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -110,10 +114,12 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', bac
         setIsVerified(true);
         setTriggerStatus("verified");
         setAttemptCount(0);
-        // Zavoláme callback onVerified, pokud je definován
+        // Volání callbacku, pokud je definován
         if (typeof onVerified === 'function') {
           onVerified({ token: captchaData.token });
         }
+        // Vyvolání globální události pro snadnou integraci do HTML/PHP
+        triggerGlobalVerifiedEvent(captchaData.token);
         if (currentType !== 'nocaptcha') {
           setTimeout(() => setShowModal(false), 1000);
         }
@@ -159,6 +165,7 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', bac
         if (typeof onVerified === 'function') {
           onVerified({ token: captchaData.token });
         }
+        triggerGlobalVerifiedEvent(captchaData.token);
       } else {
         setTriggerStatus("failed");
         const newAttemptCount = attemptCount + 1;
