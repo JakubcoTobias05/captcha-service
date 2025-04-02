@@ -35,7 +35,7 @@ export default {
     postcss(),
     url({
       include: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.webp'],
-      limit: 0, 
+      limit: Infinity,
       fileName: '[dirname][hash][extname]',
       destDir: path.resolve(__dirname, 'dist/assets')
     })
