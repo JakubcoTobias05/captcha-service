@@ -9,8 +9,7 @@ import NoCaptcha from './NoCaptcha';
 import '../styles/CaptchaWidget.css';
 import { translations } from '../translations';
 
-function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', backendUrl }) {
-  // backendUrl nyní přichází jako prop, není zde hardcodováno
+function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', backendUrl, onVerified }) {
   const [isVerified, setIsVerified] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [captchaData, setCaptchaData] = useState(null);
@@ -111,6 +110,10 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', bac
         setIsVerified(true);
         setTriggerStatus("verified");
         setAttemptCount(0);
+        // Zavoláme callback onVerified, pokud je definován
+        if (typeof onVerified === 'function') {
+          onVerified({ token: captchaData.token });
+        }
         if (currentType !== 'nocaptcha') {
           setTimeout(() => setShowModal(false), 1000);
         }
@@ -153,6 +156,9 @@ function CaptchaWidget({ apiKey, type = 'text', lang = 'cs', theme = 'dark', bac
         setIsVerified(true);
         setTriggerStatus("verified");
         setAttemptCount(0);
+        if (typeof onVerified === 'function') {
+          onVerified({ token: captchaData.token });
+        }
       } else {
         setTriggerStatus("failed");
         const newAttemptCount = attemptCount + 1;

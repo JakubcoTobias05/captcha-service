@@ -551,9 +551,9 @@
     type = 'text',
     lang = 'cs',
     theme = 'dark',
-    backendUrl
+    backendUrl,
+    onVerified
   }) {
-    // backendUrl nyní přichází jako prop, není zde hardcodováno
     const [isVerified, setIsVerified] = React.useState(false);
     const [showModal, setShowModal] = React.useState(false);
     const [captchaData, setCaptchaData] = React.useState(null);
@@ -645,6 +645,12 @@
           setIsVerified(true);
           setTriggerStatus("verified");
           setAttemptCount(0);
+          // Zavoláme callback onVerified, pokud je definován
+          if (typeof onVerified === 'function') {
+            onVerified({
+              token: captchaData.token
+            });
+          }
           if (currentType !== 'nocaptcha') {
             setTimeout(() => setShowModal(false), 1000);
           }
@@ -688,6 +694,11 @@
           setIsVerified(true);
           setTriggerStatus("verified");
           setAttemptCount(0);
+          if (typeof onVerified === 'function') {
+            onVerified({
+              token: captchaData.token
+            });
+          }
         } else {
           setTriggerStatus("failed");
           const newAttemptCount = attemptCount + 1;

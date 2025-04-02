@@ -1,6 +1,6 @@
 {
   "name": "captcha-widget",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Distribuovatelný CAPTCHA widget",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
