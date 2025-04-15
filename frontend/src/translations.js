@@ -10,6 +10,7 @@ export const translations = {
     submit: 'Odeslat',
     captchaTitleText: 'Textová CAPTCHA',
     captchaTitleAudio: 'Audio CAPTCHA',
+    captchaTitleImage: 'Obrázková CAPTCHA', 
     loading: 'Načítám...',
     error: 'Chyba: ',
     incorrect: 'Neplatná odpověď, zkuste to znovu.'
@@ -25,6 +26,7 @@ export const translations = {
     submit: 'Submit',
     captchaTitleText: 'Text CAPTCHA',
     captchaTitleAudio: 'Audio CAPTCHA',
+    captchaTitleImage: 'Image CAPTCHA', 
     loading: 'Loading...',
     error: 'Error: ',
     incorrect: 'Incorrect answer, please try again.'

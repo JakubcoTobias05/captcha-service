@@ -61,6 +61,7 @@
       submit: 'Odeslat',
       captchaTitleText: 'Textová CAPTCHA',
       captchaTitleAudio: 'Audio CAPTCHA',
+      captchaTitleImage: 'Obrázková CAPTCHA',
       loading: 'Načítám...',
       error: 'Chyba: ',
       incorrect: 'Neplatná odpověď, zkuste to znovu.'
@@ -76,6 +77,7 @@
       submit: 'Submit',
       captchaTitleText: 'Text CAPTCHA',
       captchaTitleAudio: 'Audio CAPTCHA',
+      captchaTitleImage: 'Image CAPTCHA',
       loading: 'Loading...',
       error: 'Error: ',
       incorrect: 'Incorrect answer, please try again.'
@@ -391,7 +393,7 @@
       className: "captcha-title"
     }, translations[currentLang].captchaTitleImage || 'Obrázková CAPTCHA'), captchaData?.question && /*#__PURE__*/React__default["default"].createElement("div", {
       className: "captcha-question"
-    }, captchaData.question), /*#__PURE__*/React__default["default"].createElement("div", {
+    }, currentLang === 'en' && captchaData.question_en ? captchaData.question_en : captchaData.question), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "captcha-images-grid"
     }, images.map((imgUrl, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: index,

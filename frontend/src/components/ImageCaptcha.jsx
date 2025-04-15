@@ -33,7 +33,11 @@ function ImageCaptcha({
         {translations[currentLang].captchaTitleImage || 'Obrázková CAPTCHA'}
       </h3>
       {captchaData?.question && (
-        <div className="captcha-question">{captchaData.question}</div>
+        <div className="captcha-question">
+          {currentLang === 'en' && captchaData.question_en
+            ? captchaData.question_en
+            : captchaData.question}
+        </div>
       )}
 
       <div className="captcha-images-grid">

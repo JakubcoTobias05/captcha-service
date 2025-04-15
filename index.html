@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Formulář s CAPTCHA</title>
   <style>
-    /* Jednoduché styly formuláře */
     form { max-width: 500px; margin: 20px auto; }
     input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
     button:disabled { background: #ccc; }
@@ -17,7 +16,7 @@
     <input type="email" name="email" placeholder="Váš email" required>
 
     <div data-captcha-widget 
-         data-api-key="f918feaea1668ba3d760d9924e2d527f4bc65e221a08012f9fc13e5103ec672c" 
+         data-api-key="891b0dfb35600e7350bc3f2d9579f326709c37e29c1215b0521063f43fd71226" 
          data-lang="cs" 
          data-type="image">
     </div>
@@ -36,6 +35,6 @@
 </body>
 </html>
 
-<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/captcha-widget@1.0.7/dist/captcha-widget.umd.js"></script>
+<script defer src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/captcha-widget@1.0.8/dist/captcha-widget.umd.js"></script>

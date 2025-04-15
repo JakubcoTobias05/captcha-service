@@ -6,7 +6,7 @@ const router = express.Router();
 
 const createLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000, // 24 hodin
-  max: 5, // maximálně 5 požadavků za den
+  max: 1000, // maximálně 5 požadavků za den
   message: 'Příliš mnoho žádostí o nové klíče'
 });
 
